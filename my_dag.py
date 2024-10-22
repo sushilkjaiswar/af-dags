@@ -18,7 +18,7 @@ def _training_model(model):
   print(model)
   return randint(1, 10)
 
-with DAG("my_dag",
+with DAG("tutorial",
   start_date=datetime(2023, 1 ,1), 
   schedule_interval='@daily', 
   catchup=False):
