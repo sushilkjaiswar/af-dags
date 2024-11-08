@@ -1,3 +1,8 @@
+from airflow import DAG
+from airflow.operators.python import PythonOperator, BranchPythonOperator
+from datetime import datetime
+from random import randint
+
 def install_and_import():
     import subprocess
     subprocess.check_call(["pip", "install", "pandas"])
