@@ -12,7 +12,7 @@ def install_and_import():
 def process_data():
     logging.info("start data process..")
     df = pd.DataFrame([[21,32,12],[1,4,2],[45,89,65]], columns=['a', 'b', 'c'])
-    df.head()
+    logging.info(df.head())
 
 with DAG("dynamic_installation", start_date=datetime(2024, 1, 1), schedule_interval='@daily', catchup=False) as dag:
     run_task = PythonOperator(
