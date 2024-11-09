@@ -1,6 +1,5 @@
 import os
 import json
-import requests
 import random
 from datetime import datetime
 from airflow.decorators import dag, task
