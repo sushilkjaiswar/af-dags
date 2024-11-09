@@ -60,7 +60,7 @@ def dump_data_to_bucket(tweet_list: list):
     tags=["twitter", "etl"],
 )
 def twitter_etl():
-    install_and_import(dump_data_to_bucket(get_twitter_data()))
+    dump_data_to_bucket(get_twitter_data(install_and_import()))
 
 
 twitter_etl()
