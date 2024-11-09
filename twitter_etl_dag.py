@@ -8,7 +8,7 @@ from airflow.decorators import dag, task
 @task
 def install_and_import():
     import subprocess
-    subprocess.check_call(["pip", "install", "requests"])
+    
     subprocess.check_call(["pip", "install", "numpy"])
     subprocess.check_call(["pip", "install", "pandas"])
     subprocess.check_call(["pip", "install", "sklearn"])
