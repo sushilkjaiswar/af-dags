@@ -22,8 +22,8 @@ def install_and_import():
 def get_twitter_data():
     import pandas as pd
     data = [[random.randint(0,10),random.randint(50,150),random.randint(1,110),random.randint(25,75),] for _ in range(100)]
-    df = pd.DataFrame(data, columns=["a", "b", "c", "d"])
-    return df
+
+    return data
 
 
 # @task
@@ -36,7 +36,7 @@ def get_twitter_data():
 #     MINIO_ROOT_USER = os.getenv("MINIO_ROOT_USER")
 #     MINIO_ROOT_PASSWORD = os.getenv("MINIO_ROOT_PASSWORD")
 
-#     df = pd.DataFrame(tweet_list)
+#     df = pd.DataFrame(tweet_list, columns=["a", "b", "c", "d"])
 #     csv = df.to_csv(index=False).encode("utf-8")
 
 #     client = Minio("http://s3.object.com", access_key=MINIO_ROOT_USER, secret_key=MINIO_ROOT_PASSWORD, secure=False)
