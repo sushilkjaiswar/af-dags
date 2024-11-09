@@ -1,40 +1,28 @@
 import os
 import json
 import requests
+import random
 from datetime import datetime
 from airflow.decorators import dag, task
 
 
 @task
+def install_and_import():
+    import subprocess
+    subprocess.check_call(["pip", "install", "requests"])
+    subprocess.check_call(["pip", "install", "numpy"])
+    subprocess.check_call(["pip", "install", "pandas"])
+    subprocess.check_call(["pip", "install", "sklearn"])
+    # subprocess.check_call(["pip", "install", "matplotlib"])
+    # subprocess.check_call(["pip", "install", "seaborn"])
+    subprocess.check_call(["pip", "install", "minio"])
+    
+    
+@task
 def get_twitter_data():
-    TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
-
-    # Get tweets using Twitter API v2 & Bearer Token
-    BASE_URL = "https://api.twitter.com/2/tweets/search/recent"
-    USERNAME = "elonmusk"
-    FIELDS = {"created_at", "lang", "attachments", "public_metrics", "text", "author_id"}
-
-    url = f"{BASE_URL}?query=from:{USERNAME}&tweet.fields={','.join(FIELDS)}&expansions=author_id&max_results=50"
-    response = requests.get(url=url, headers={"Authorization": f"Bearer {TWITTER_BEARER_TOKEN}"})
-    response = json.loads(response.content)
-
-    data = response["data"]
-    includes = response["includes"]
-
-    # Refine tweets data
-    tweet_list = []
-    for tweet in data:
-        refined_tweet = {
-            "tweet_id": tweet["id"],
-            "username": includes["users"][0]["username"],  # Get username from the included data
-            "user_id": tweet["author_id"],
-            "text": tweet["text"],
-            "like_count": tweet["public_metrics"]["like_count"],
-            "retweet_count": tweet["public_metrics"]["retweet_count"],
-            "created_at": tweet["created_at"],
-        }
-        tweet_list.append(refined_tweet)
-    return tweet_list
+    data = [[random.randint(0,10),random.randint(50,150),random.randint(1,110),random.randint(25.00,200.00),] for _ in range(100)]
+    df = pd.DataFrame(data)
+    return df
 
 
 @task
@@ -50,7 +38,7 @@ def dump_data_to_bucket(tweet_list: list):
     df = pd.DataFrame(tweet_list)
     csv = df.to_csv(index=False).encode("utf-8")
 
-    client = Minio("minio:9000", access_key=MINIO_ROOT_USER, secret_key=MINIO_ROOT_PASSWORD, secure=False)
+    client = Minio("http://s3.object.com", access_key=MINIO_ROOT_USER, secret_key=MINIO_ROOT_PASSWORD, secure=False)
 
     # Make MINIO_BUCKET_NAME if not exist.
     found = client.bucket_exists(MINIO_BUCKET_NAME)
@@ -72,7 +60,7 @@ def dump_data_to_bucket(tweet_list: list):
     tags=["twitter", "etl"],
 )
 def twitter_etl():
-    dump_data_to_bucket(get_twitter_data())
+    install_and_import(dump_data_to_bucket(get_twitter_data()))
 
 
 twitter_etl()
