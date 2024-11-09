@@ -26,32 +26,32 @@ def get_twitter_data(data):
     return data
 
 
-# @task
-# def dump_data_to_bucket(tweet_list: list):
-#     import pandas as pd
-#     from minio import Minio
-#     from io import BytesIO
+@task
+def dump_data_to_bucket(tweet_list: list):
+    import pandas as pd
+    from minio import Minio
+    from io import BytesIO
 
-#     MINIO_BUCKET_NAME = os.getenv("MINIO_BUCKET_NAME")
-#     MINIO_ROOT_USER = os.getenv("MINIO_ROOT_USER")
-#     MINIO_ROOT_PASSWORD = os.getenv("MINIO_ROOT_PASSWORD")
+    MINIO_BUCKET_NAME = os.getenv("MINIO_BUCKET_NAME")
+    MINIO_ROOT_USER = os.getenv("MINIO_ROOT_USER")
+    MINIO_ROOT_PASSWORD = os.getenv("MINIO_ROOT_PASSWORD")
 
-#     df = pd.DataFrame(tweet_list, columns=["a", "b", "c", "d"])
-#     csv = df.to_csv(index=False).encode("utf-8")
+    df = pd.DataFrame(tweet_list, columns=["a", "b", "c", "d"])
+    csv = df.to_csv(index=False).encode("utf-8")
 
-#     client = Minio("http://s3.object.com", access_key=MINIO_ROOT_USER, secret_key=MINIO_ROOT_PASSWORD, secure=False)
+    client = Minio("http://s3.object.com", access_key=MINIO_ROOT_USER, secret_key=MINIO_ROOT_PASSWORD, secure=False)
 
-#     # Make MINIO_BUCKET_NAME if not exist.
-#     found = client.bucket_exists(MINIO_BUCKET_NAME)
-#     if not found:
-#         client.make_bucket(MINIO_BUCKET_NAME)
-#     else:
-#         print(f"Bucket '{MINIO_BUCKET_NAME}' already exists!")
+    # Make MINIO_BUCKET_NAME if not exist.
+    found = client.bucket_exists(MINIO_BUCKET_NAME)
+    if not found:
+        client.make_bucket(MINIO_BUCKET_NAME)
+    else:
+        print(f"Bucket '{MINIO_BUCKET_NAME}' already exists!")
 
-#     # Put csv data in the bucket
-#     client.put_object(
-#         "airflow-bucket", "twitter_elon_musk.csv", data=BytesIO(csv), length=len(csv), content_type="application/csv"
-#     )
+    # Put csv data in the bucket
+    client.put_object(
+        "airflow-bucket", "twitter_elon_musk.csv", data=BytesIO(csv), length=len(csv), content_type="application/csv"
+    )
 
 
 @dag(
@@ -61,8 +61,8 @@ def get_twitter_data(data):
     tags=["twitter", "etl"],
 )
 def twitter_etl():
-    # dump_data_to_bucket(get_twitter_data(install_and_import()))
-    get_twitter_data(install_and_import())
+    dump_data_to_bucket(get_twitter_data(install_and_import()))
+    # get_twitter_data(install_and_import())
 
 
 twitter_etl()
