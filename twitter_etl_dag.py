@@ -19,7 +19,7 @@ def install_and_import():
     
     
 @task
-def get_twitter_data():
+def get_twitter_data(data):
     import pandas as pd
     data = [[random.randint(0,10),random.randint(50,150),random.randint(1,110),random.randint(25,75),] for _ in range(100)]
 
