@@ -38,7 +38,7 @@ def dump_data_to_bucket(tweet_list: list):
 
     df = pd.DataFrame(tweet_list, columns=["a", "b", "c", "d"])
     csv = df.to_csv(index=False).encode("utf-8")
-
+    logging.info(f"MINIO_ROOT_USER: {MINIO_ROOT_USER}, MINIO_BUCKET_NAME: {MINIO_BUCKET_NAME}")
     client = Minio("http://s3.object.com/api", access_key=MINIO_ROOT_USER, secret_key=MINIO_ROOT_PASSWORD, secure=False)
 
     # Make MINIO_BUCKET_NAME if not exist.
