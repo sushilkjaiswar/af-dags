@@ -62,7 +62,7 @@ def install_and_import():
 )
 def twitter_etl():
     # dump_data_to_bucket(get_twitter_data(install_and_import()))
-    install_and_import()
+    get_twitter_data(install_and_import())
 
 
 twitter_etl()
