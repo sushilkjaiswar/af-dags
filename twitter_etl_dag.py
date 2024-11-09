@@ -3,7 +3,7 @@ import json
 import random
 from datetime import datetime
 from airflow.decorators import dag, task
-
+import logging
 
 @task
 def install_and_import():
