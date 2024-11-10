@@ -94,6 +94,5 @@ with DAG(
         op_kwargs={
             "s3_conn_id": "locals3",
             "bucket": "datasets",
-            "key": "ml",
         },
     )
