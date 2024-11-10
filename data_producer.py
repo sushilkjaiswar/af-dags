@@ -30,7 +30,7 @@ def _transfer_from_api_to_s3():
     df = pd.DataFrame.from_records(data)
     filename = "user.csv"
     bucket = "data-warehouse"
-    key = "ml/user.csv"
+    key = "ml/"
     with NamedTemporaryFile("w+b") as file:
         df.to_csv(filename, index=False)
 
