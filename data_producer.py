@@ -57,6 +57,7 @@ def _list_objects():
     result = minio_client.list_objects(bucket_name=bucket)
 
     logging.info("Listing objects:")
+    logging.info(f"Result: {result}")
     for item in result:
         logging.info(item.object_name)
 
