@@ -15,6 +15,7 @@ wildfires_dataset = Dataset("s3://s3.minio.com/data-warehouse/ml/")
 os.environ["HOURS_AGO"] = "1"
 
 def _transfer_from_api_to_s3():
+    logging.info(os.environ)
     data = [{"id":1,"first_name":"Rosco","last_name":"Reddyhoff","email":"rreddyhoff0@blogger.com","gender":"Male","ip_address":"9.46.93.93"},
             {"id":2,"first_name":"Kaye","last_name":"Barbary","email":"kbarbary1@seesaa.net","gender":"Female","ip_address":"57.90.84.94"},
             {"id":3,"first_name":"Hamlen","last_name":"Grigs","email":"hgrigs2@newyorker.com","gender":"Male","ip_address":"10.222.119.144"},
