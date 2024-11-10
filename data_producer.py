@@ -54,12 +54,12 @@ def _list_objects():
   
     minio_client = Minio("minio-service.s3-system:9000", access_key="admin", secret_key="adminadmin", secure=False)
 
-    result = minio_client.list_objects(bucket_name=bucket)
+    result = minio_client.list_objects(bucket_name=bucket, prefix='ml', recursive=True)
 
     logging.info("Listing objects:")
     logging.info(f"Result: {result}")
     for item in result:
-        logging.info(item.object_name)
+        logging.info(item.object_name, item.size)
 
 
 with DAG(
