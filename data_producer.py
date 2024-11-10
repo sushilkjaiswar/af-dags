@@ -93,6 +93,6 @@ with DAG(
         python_callable=_list_objects,
         op_kwargs={
             "s3_conn_id": "locals3",
-            "bucket": "datasets",
+            "bucket": "data-warehouse",
         },
     )
