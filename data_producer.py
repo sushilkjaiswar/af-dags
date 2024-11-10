@@ -7,6 +7,7 @@ from minio import Minio
 import pandas as pd
 import pendulum
 import logging
+import os 
 
 wildfires_dataset = Dataset("s3://s3.minio.com/data-warehouse/ml/")
 
