@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.datasets import Dataset
+from tempfile import NamedTemporaryFile
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.empty import EmptyOperator
 from datetime import datetime
