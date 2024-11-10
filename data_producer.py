@@ -47,7 +47,7 @@ def _transfer_from_api_to_s3():
         logging.info(result)
 
 
-def _list_objects(s3_conn_id, bucket):
+def _list_objects():
     filename = "user.csv"
     bucket = "data-warehouse"
     key = "ml/user.csv"
@@ -91,8 +91,4 @@ with DAG(
     list_objects = PythonOperator(
         task_id="list_objects",
         python_callable=_list_objects,
-        op_kwargs={
-            "s3_conn_id": "locals3",
-            "bucket": "data-warehouse",
-        },
     )
