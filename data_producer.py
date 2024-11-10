@@ -12,7 +12,7 @@ import logging
 import os 
 
 wildfires_dataset = Dataset("s3://s3.minio.com/data-warehouse/ml/")
-os.environ["HOURS_AGO"] = "1"
+os.environ["HOURS_AGO"] = "0"
 
 def _transfer_from_api_to_s3():
     logging.info(os.environ)
