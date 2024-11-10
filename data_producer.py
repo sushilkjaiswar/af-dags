@@ -59,7 +59,7 @@ def _list_objects():
     logging.info("Listing objects:")
     logging.info(f"Result: {result}")
     for item in result:
-        logging.info(item.object_name, item.size)
+        logging.info(f"Object: {item.object_name}, Size: {item.size}")
 
 
 with DAG(
